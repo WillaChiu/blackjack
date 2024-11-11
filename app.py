@@ -7,7 +7,7 @@ def generate_problems(numbers):
     problems = []
     answers = []
     for num in numbers:
-        problem = f"What is 1.5 times ${num}?"
+        problem = f"${num}?"
         answer = num * 1.5
         problems.append(problem)
         answers.append(answer)
@@ -30,11 +30,11 @@ if "feedback" not in st.session_state:
     st.session_state.feedback = ""
 
 # 选择模式
-mode = st.radio("Choose mode:", ("Mode A: Fixed Numbers", "Mode B: Random Numbers (1-500)"))
+mode = st.radio("Choose mode:", ("Mode A: Fixed Numbers (1-20,25,35,45,55,65,75)", "Mode B: Random Numbers (1-500)"))
 
 # 根据选择的模式生成问题
 if st.button("Start Quiz"):
-    if mode == "Mode A: Fixed Numbers":
+    if mode == "Mode A: Fixed Numbers (1-20,25,35,45,55,65,75)":
         numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 25, 35, 45, 55, 65, 75]
     else:
         numbers = [random.randint(1, 500) for _ in range(20)]  # 生成20个随机数
