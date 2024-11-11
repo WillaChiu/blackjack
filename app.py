@@ -102,10 +102,10 @@ st.markdown("If you enjoyed this quiz and would like to support further developm
 
 # PayPal.Me 捐赠链接
 donate_url = "https://paypal.me/WillaQu?country.x=CA&locale.x=en_US"  # 替换成你的 PayPal.Me 链接
-#st.markdown(f"[Donate to my PayPal]( {https://paypal.me/WillaQu?country.x=CA&locale.x=en_US} )")  # 超链接显示
+st.markdown(f"[Donate to my PayPal]( {donate_url} )")  # 超链接显示
 
 # 或者使用按钮样式
-#st.write("###")
-#if st.button("Donate via PayPal"):
-   # st.markdown(f"[Click here to donate via PayPal]({https://paypal.me/WillaQu?country.x=CA&locale.x=en_US})")
+st.write("###")
+if st.button("Donate via PayPal"):
+    st.markdown(f"[Click here to donate via PayPal]({donate_url})")
 
