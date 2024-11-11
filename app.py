@@ -13,7 +13,7 @@ def generate_problems(numbers):
     return problems, answers
 
 # 设置页面标题
-st.title("BlackJack Payout Practice")
+st.title("Math Quiz")
 
 # 初始化全局变量
 if "score" not in st.session_state:
@@ -28,11 +28,11 @@ if "feedback" not in st.session_state:
     st.session_state.feedback = ""
 
 # 选择模式
-mode = st.radio("Choose mode:", ("Mode A: Fixed Numbers (1-20,25,35,45,55,65,75)", "Mode B: Random Numbers (1-500)"))
+mode = st.radio("Choose mode:", ("Mode A: Fixed Numbers", "Mode B: Random Numbers (1-500)"))
 
 # 根据选择的模式生成问题
 if st.button("Start Quiz"):
-    if mode == "Mode A: Fixed Numbers (1-20,25,35,45,55,65,75)":
+    if mode == "Mode A: Fixed Numbers":
         numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 25, 35, 45, 55, 65, 75]
     else:
         numbers = [random.randint(1, 500) for _ in range(20)]  # 生成20个随机数
@@ -56,20 +56,15 @@ if st.session_state.problems and st.session_state.current_problem_index < len(st
 
     # 显示问题并接受用户输入答案
     st.write(current_problem)
-    #user_answer = st.number_input("Your answer:", step=0.1, key="answer_input")
-    user_answer = st.text_input("Your answer:", value="", key="answer_input" ) # 使用text_input，默认值为空
-
+    user_answer = st.number_input("Your answer:", step=0.1, key="answer_input")
+    
     # 提交答案按钮
     if st.button("Submit Answer"):
-        try:
-            user_answer_float = float(user_answer)  # 尝试将用户输入转换为浮点数
-            if user_answer_float == correct_answer:
-                st.session_state.score += 1
-                st.session_state.feedback = "Correct!"
-            else:
-                st.session_state.feedback = f"Wrong! The correct answer was {correct_answer}."
-        except ValueError:
-            st.session_state.feedback = "Please enter a valid number."
+        if user_answer == correct_answer:
+            st.session_state.score += 1
+            st.session_state.feedback = "Correct!"
+        else:
+            st.session_state.feedback = f"Wrong! The correct answer was {correct_answer}."
 
     # 显示答案反馈
     st.write(st.session_state.feedback)
@@ -78,7 +73,7 @@ if st.session_state.problems and st.session_state.current_problem_index < len(st
     if st.session_state.feedback and st.button("Next Question"):
         st.session_state.current_problem_index += 1
         st.session_state.feedback = ""  # 清除反馈
-        st.rerun()  # 刷新页面以显示下一题
+        st.experimental_rerun()  # 刷新页面以显示下一题
 
 # 检查是否完成所有问题
 if st.session_state.current_problem_index >= len(st.session_state.problems):
@@ -89,6 +84,7 @@ if st.session_state.current_problem_index >= len(st.session_state.problems):
     del st.session_state.correct_answers
     st.session_state.current_problem_index = 0
     st.session_state.score = 0
+
 
 # 在页面底部添加作者信息和 PayPal 捐赠链接
 st.markdown("---")  # 分割线
