@@ -58,7 +58,16 @@ if st.session_state.problems and st.session_state.current_problem_index < len(st
 
     # 显示问题并接受用户输入答案
     st.write(current_problem)
-    user_answer = st.number_input("Your answer:", step=0.1, key="answer_input")
+    #user_answer = st.number_input("Your answer:", step=0.1, key="answer_input")
+    # 获取用户输入并尝试立即转换为浮点数
+    user_answer = st.text_input("Your answer:", value="", key="answer_input")  # 使用text_input，默认值为空
+    
+    # 尝试将输入的字符串转换为浮点数
+    try:
+        user_answer_float = float(user_answer.strip().replace(",", ".")) if user_answer else None
+    except ValueError:
+        user_answer_float = None
+        st.warning("Please enter a valid number.")
     
 
 
