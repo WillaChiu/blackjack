@@ -1,7 +1,6 @@
 import streamlit as st
 import random
 
-
 def generate_problems(numbers):
     """生成问题和答案列表"""
     problems = []
@@ -13,11 +12,10 @@ def generate_problems(numbers):
         answers.append(answer)
     return problems, answers
 
-
 # 设置页面标题
 st.title("Math Quiz")
 
-# 全局变量，用于追踪分数和当前题目索引
+# 初始化 session_state 变量
 if "score" not in st.session_state:
     st.session_state.score = 0
 if "current_problem_index" not in st.session_state:
@@ -30,7 +28,7 @@ if "correct_answers" not in st.session_state:
 # 选择模式
 mode = st.radio("Choose mode:", ("Mode A: Fixed Numbers", "Mode B: Random Numbers (1-500)"))
 
-# 根据选择的模式生成问题
+# 开始测验按钮
 if st.button("Start Quiz"):
     if mode == "Mode A: Fixed Numbers":
         numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 25, 35, 45, 55, 65, 75]
@@ -55,21 +53,27 @@ if st.session_state.problems:
 
     # 显示问题并接受用户输入答案
     st.write(current_problem)
-    user_answer = st.number_input("Your answer:", step=0.1, key="answer_input")
-
-    # 提交答案按钮
+    user_answer = st.text_input("Your answer:", value="", key="answer_input")
+    
+    # 提交答案按钮，模拟回车效果
     if st.button("Submit Answer"):
-        if user_answer == correct_answer:
-            st.session_state.score += 1
-            st.write("Correct!")
-        else:
-            st.write(f"Wrong! The correct answer was {correct_answer}.")
+        try:
+            user_answer_float = float(user_answer)
+            if user_answer_float == correct_answer:
+                st.session_state.score += 1
+                st.write("Correct!")
+            else:
+                st.write(f"Wrong! The correct answer was {correct_answer}.")
+        except ValueError:
+            st.write("Please enter a valid number.")
 
-        # 更新题目索引
+        # 清空输入框并更新题目索引
         st.session_state.current_problem_index += 1
+        st.experimental_rerun()  # 重新运行以清空输入框
 
 # 检查是否完成所有问题
 if st.session_state.current_problem_index >= len(st.session_state.problems):
     st.write("Quiz completed!")
     st.write(f"You got {st.session_state.score} out of {len(st.session_state.problems)} correct.")
     st.session_state.problems = []  # 清空题目，等待下次开始
+
