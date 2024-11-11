@@ -93,11 +93,7 @@ if st.session_state.current_problem_index >= len(st.session_state.problems):
 # 在页面底部添加作者信息和 PayPal 捐赠链接
 st.markdown("---")  # 分割线
 st.markdown("### Created by Willa Q.")
-#st.markdown("If you enjoyed this quiz and would like to support further development, feel free to donate!")
 
-# 在页面底部添加作者信息和 PayPal.Me 捐赠链接
-st.markdown("---")  # 分割线
-st.markdown("### Created by Your Name")
 st.markdown("If you enjoyed this quiz and would like to support further development, feel free to donate!")
 
 # PayPal.Me 捐赠链接
