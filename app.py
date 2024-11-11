@@ -15,7 +15,7 @@ def generate_problems(numbers):
 # 设置页面标题
 st.title("Math Quiz")
 
-# 初始化全局变量
+# 全局变量，用于追踪分数和当前题目索引
 if "score" not in st.session_state:
     st.session_state.score = 0
 if "current_problem_index" not in st.session_state:
@@ -24,8 +24,6 @@ if "problems" not in st.session_state:
     st.session_state.problems = []
 if "correct_answers" not in st.session_state:
     st.session_state.correct_answers = []
-if "feedback" not in st.session_state:
-    st.session_state.feedback = ""
 
 # 选择模式
 mode = st.radio("Choose mode:", ("Mode A: Fixed Numbers", "Mode B: Random Numbers (1-500)"))
@@ -46,10 +44,9 @@ if st.button("Start Quiz"):
     # 重置分数和题目索引
     st.session_state.score = 0
     st.session_state.current_problem_index = 0
-    st.session_state.feedback = ""
 
 # 显示当前问题
-if st.session_state.problems and st.session_state.current_problem_index < len(st.session_state.problems):
+if st.session_state.problems:
     # 获取当前问题和答案
     current_problem = st.session_state.problems[st.session_state.current_problem_index]
     correct_answer = st.session_state.correct_answers[st.session_state.current_problem_index]
@@ -62,28 +59,19 @@ if st.session_state.problems and st.session_state.current_problem_index < len(st
     if st.button("Submit Answer"):
         if user_answer == correct_answer:
             st.session_state.score += 1
-            st.session_state.feedback = "Correct!"
+            st.write("Correct!")
         else:
-            st.session_state.feedback = f"Wrong! The correct answer was {correct_answer}."
+            st.write(f"Wrong! The correct answer was {correct_answer}.")
 
-    # 显示答案反馈
-    st.write(st.session_state.feedback)
-
-    # 显示“Next Question”按钮来进入下一题
-    if st.session_state.feedback and st.button("Next Question"):
+        # 更新题目索引
         st.session_state.current_problem_index += 1
-        st.session_state.feedback = ""  # 清除反馈
-        st.experimental_rerun()  # 刷新页面以显示下一题
 
 # 检查是否完成所有问题
 if st.session_state.current_problem_index >= len(st.session_state.problems):
     st.write("Quiz completed!")
     st.write(f"You got {st.session_state.score} out of {len(st.session_state.problems)} correct.")
-    # 清空题目和状态，以便下次重新开始
-    del st.session_state.problems
-    del st.session_state.correct_answers
-    st.session_state.current_problem_index = 0
-    st.session_state.score = 0
+    st.session_state.problems = []  # 清空题目，等待下次开始
+
 
 
 # 在页面底部添加作者信息和 PayPal 捐赠链接
