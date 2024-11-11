@@ -6,7 +6,7 @@ def generate_problems(numbers):
     problems = []
     answers = []
     for num in numbers:
-        problem = f"${num}?"
+        problem = f"What is 1.5 times ${num}?"
         answer = num * 1.5
         problems.append(problem)
         answers.append(answer)
@@ -63,14 +63,15 @@ if st.session_state.problems:
         else:
             st.write(f"Wrong! The correct answer was {correct_answer}.")
 
-        # 更新题目索引
+        # 更新题目索引并刷新页面
         st.session_state.current_problem_index += 1
-   
+        st.experimental_rerun()  # 强制刷新页面以显示下一个问题
 
 # 检查是否完成所有问题
 if st.session_state.current_problem_index >= len(st.session_state.problems):
     st.write("Quiz completed!")
     st.write(f"You got {st.session_state.score} out of {len(st.session_state.problems)} correct.")
     st.session_state.problems = []  # 清空题目，等待下次开始
+
 
 
