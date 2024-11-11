@@ -57,7 +57,7 @@ if st.session_state.problems and st.session_state.current_problem_index < len(st
     # 显示问题并接受用户输入答案
     st.write(current_problem)
     #user_answer = st.number_input("Your answer:", step=0.1, key="answer_input")
-    user_answer = float(st.text_input("Your answer:", value="", key="answer_input")）  # 使用text_input，默认值为空
+    user_answer = float(st.text_input("Your answer:", value="", key="answer_input" ) # 使用text_input，默认值为空
     # 提交答案按钮
     if st.button("Submit Answer"):
         if user_answer == correct_answer:
