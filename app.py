@@ -65,6 +65,7 @@ if st.session_state.problems:
 
         # 更新题目索引
         st.session_state.current_problem_index += 1
+        st.experimental_rerun()  # 重新运行以清空输入框
 
 # 检查是否完成所有问题
 if st.session_state.current_problem_index >= len(st.session_state.problems):
