@@ -64,7 +64,7 @@ if st.session_state.problems and st.session_state.current_problem_index < len(st
     
     # 尝试将输入的字符串转换为浮点数
     try:
-        user_answer = float(user_answerori.strip().replace(",", ".")) if user_answer else None
+        user_answer = float(user_answerori.strip().replace(",", ".")) if user_answerori else None
     except ValueError:
         user_answer = None
         st.warning("Please enter a valid number.")
