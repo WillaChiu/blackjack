@@ -13,7 +13,7 @@ def generate_problems(numbers):
     return problems, answers
 
 # 设置页面标题
-st.title("Math Quiz")
+st.title("BlackJack Payout")
 
 # 初始化全局变量
 if "score" not in st.session_state:
@@ -90,6 +90,13 @@ if st.session_state.current_problem_index >= len(st.session_state.problems):
     st.session_state.current_problem_index = 0
     st.session_state.score = 0
 
+# 在页面底部添加作者信息和 PayPal 捐赠链接
+st.markdown("---")  # 分割线
+st.markdown("### Created by Willa Q.")
+#st.markdown("If you enjoyed this quiz and would like to support further development, feel free to donate!")
 
+# PayPal 捐赠链接
+#donate_url = "https://www.paypal.com/donate?hosted_button_id=YOUR_PAYPAL_BUTTON_ID"  # 替换成你的PayPal链接
+#st.markdown(f"[Donate to my PayPal]( {donate_url} )")
 
 
