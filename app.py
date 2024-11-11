@@ -60,6 +60,7 @@ if st.session_state.problems and st.session_state.current_problem_index < len(st
         if user_answer == correct_answer:
             st.session_state.score += 1
             st.write("Correct!")
+            st.rerun()
             
         else:
             st.write(f"Wrong! The correct answer was {correct_answer}.")
@@ -67,8 +68,8 @@ if st.session_state.problems and st.session_state.current_problem_index < len(st
 
         # 更新题目索引
         st.session_state.current_problem_index += 1
-        st.experimental_set_query_params(index=st.session_state.current_problem_index)  # 设置URL参数来保持问题进度
-        st.rerun()
+       
+        #st.rerun()
 
 # 检查是否完成所有问题
 if st.session_state.current_problem_index >= len(st.session_state.problems):
